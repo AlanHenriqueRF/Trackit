@@ -1,14 +1,17 @@
-import { useState } from 'react'
+import { BrowserRouter, Routes ,Route } from "react-router-dom"
+import SingInPage from "./Pages/SingInPage"
+import SingUpPage from "./Pages/SingUpPage"
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        Em teste...
-       </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<SingInPage/>}/> 
+        <Route path="/cadastro" element={<SingUpPage/>}/>
+        {/* <Route path='/' element={<SingUpPage/>}/>  */}
+       </Routes>
+    </BrowserRouter>
   )
 }
 
