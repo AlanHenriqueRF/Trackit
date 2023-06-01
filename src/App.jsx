@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes ,Route } from "react-router-dom"
-import SingInPage from "./Pages/SingInPage"
-import SingUpPage from "./Pages/SingUpPage"
+import SingInPage from "./Pages/SingIN/SingInPage"
+import SingUpPage from "./Pages/SingUP/SingUpPage"
 
 function App() {
 
