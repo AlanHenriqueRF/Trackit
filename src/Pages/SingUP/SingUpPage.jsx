@@ -8,12 +8,14 @@ export default function SingUpPage() {
             <img src={Logo} alt="Logo" />
 
             <FormsingUP>
-                <input type="email" placeholder='email'/>
+                <input type="email" placeholder='email' />
                 <input type="password" placeholder='senha' />
                 <input type="text" placeholder='nome' />
-                <input type="url" placeholder='foto'/>
+                <input type="url" placeholder='foto' />
+
 
                 <button>Cadastrar</button>
+
             </FormsingUP>
 
             <Link to='/'>
