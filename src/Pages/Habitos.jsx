@@ -36,7 +36,7 @@ export default function Habitos() {
                     <form>
                         <input type="text" placeholder="nome do hábito" />
                         <div>
-                            {lista_dias.map(dia => <button>{dia}</button>)}
+                            {lista_dias.map((dia, i) => <button key={i}>{dia}</button>)}
                         </div>
 
                     </form>
