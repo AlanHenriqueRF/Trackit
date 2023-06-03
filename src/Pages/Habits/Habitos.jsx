@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import Footer from "../components/Footer"
-import Navbar from "../components/Navbar"
-import plus from "./../assets/plus.svg"
+import Footer from "../../components/Footer"
+import Navbar from "../../components/Navbar"
+import plus from "./../../assets/plus.svg"
 
 export default function Habitos() {
     const lista_dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
@@ -97,7 +97,6 @@ const Habittsstyle = styled.div`
 `
 
 const TempleteCreat = styled.div`
-    width:340px;
     height:180px;
     margin: 20px 17px 0px 17px;
     background-color: #FFFFFF;
@@ -106,7 +105,8 @@ const TempleteCreat = styled.div`
 
     form{
         display: flex;
-        flex-wrap:wrap;
+        flex-direction: column;
+        /* flex-wrap:wrap; */
 
         input{
             background-color: #FFFFFF;
@@ -144,9 +144,10 @@ const TempleteCreat = styled.div`
 `
 
 const Styleputhabit = styled.div`
-    margin:29px 16px 15px 144px;
+    margin-right:16px;
+    margin-top:23px;
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-end;
     button{
             width:84px;
             height:35px;
