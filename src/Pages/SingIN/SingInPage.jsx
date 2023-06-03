@@ -1,27 +1,34 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Logo from './../../assets/logo.svg'
 import styled from 'styled-components'
 import axios from 'axios'
 import { useState } from 'react'
+import { ThreeDots } from 'react-loader-spinner'
 
 export default function SingInPage() {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('');
+    const [active,setActive] =useState(false);
+    const navigate = useNavigate()
 
     function loginpost(e){
         e.preventDefault()
+        setActive(true)
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login',{email:email,password:password})
-            .catch((erro)=>alert((erro.response.data.message)))
+            .then((resposta)=>navigate('/hoje',{state: resposta}))
+            .catch((erro)=>{
+                alert((erro.response.data.message))
+                setActive(false)})
 
     }
     return (
         <PagelogIN>
-
+        
             <img src={Logo} alt='Logo' />
             <FormlogIn onSubmit={loginpost}>
-                <input type="email" placeholder='email' value={email} onChange={(e)=>setEmail(e.target.value)} required/>
-                <input type="password" placeholder='senha' value={password} onChange={(e)=>setPassword(e.target.value)} required/>
-                <button type='submit'>Entrar</button>
+                <input type="email" disabled={active} placeholder='email' value={email} onChange={(e)=>setEmail(e.target.value)} required/>
+                <input type="password" disabled={active} placeholder='senha' value={password} onChange={(e)=>setPassword(e.target.value)} required/>
+                <Button type='submit' disabled={active} opacity ={active ? '70%':'none'}>{active ? <ThreeDots />:'Entrar'}</Button>
             </FormlogIn>
 
             <Link to='/cadastro' >
@@ -71,16 +78,26 @@ const FormlogIn = styled.form`
             color: #DBDBDB;
         }
     }
-    button{
-        background-color:#52B6FF;
-        height:45px;
-        border-radius:5px;
-        border:none;
-        color:#FFFFFF;
-        font-size:21px;
-        text-align:center;
-        font-family: 'Lexend Deca', sans-serif;
-
-    }
 
 `
+
+const Button = styled.button`
+    background-color:#52B6FF;
+    opacity:${props=>props.opacity};
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:45px;
+    border-radius:5px;
+    border:none;
+    color:#FFFFFF;
+    font-size:21px;
+    text-align:center;
+    font-family: 'Lexend Deca', sans-serif;
+    div{
+        svg{
+        width:51px;
+        height: 13px;
+        fill:#FFFFFF;}
+    }
+    `
