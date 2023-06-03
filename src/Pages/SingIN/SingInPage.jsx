@@ -1,16 +1,27 @@
 import { Link } from 'react-router-dom'
 import Logo from './../../assets/logo.svg'
 import styled from 'styled-components'
+import axios from 'axios'
+import { useState } from 'react'
 
 export default function SingInPage() {
+    const [email,setEmail] = useState('')
+    const [password,setPassword] = useState('');
+
+    function loginpost(e){
+        e.preventDefault()
+        axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login',{email:email,password:password})
+            .catch((erro)=>alert((erro.response.data.message)))
+
+    }
     return (
         <PagelogIN>
 
             <img src={Logo} alt='Logo' />
-            <FormlogIn>
-                <input type="email" placeholder='email' />
-                <input type="password" placeholder='senha' />
-                <button>Entrar</button>
+            <FormlogIn onSubmit={loginpost}>
+                <input type="email" placeholder='email' value={email} onChange={(e)=>setEmail(e.target.value)} required/>
+                <input type="password" placeholder='senha' value={password} onChange={(e)=>setPassword(e.target.value)} required/>
+                <button type='submit'>Entrar</button>
             </FormlogIn>
 
             <Link to='/cadastro' >

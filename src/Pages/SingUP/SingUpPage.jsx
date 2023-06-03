@@ -1,20 +1,41 @@
+import { useState } from 'react'
 import Logo from './../../assets/logo.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import axios from 'axios'
+import { ThreeDots } from 'react-loader-spinner'
 
 export default function SingUpPage() {
+    const [email,setEmail]= useState('');
+	const [name, setName] = useState('');
+	const [image, setImage] = useState('');
+	const [password, setPassword]= useState('');
+    const [active,setActive] =useState(false);
+
+    const navigate = useNavigate()
+
+    function SingUpPost(e){
+        e.preventDefault()
+        setActive(true)
+        axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up',{email, name, image, password})
+            .then((resposta)=>{navigate('/')})
+            .catch((erro)=>{
+                alert(erro.response.data.message)
+                setActive(false)})
+    }
+
     return (
         <PagesingUP>
             <img src={Logo} alt="Logo" />
 
-            <FormsingUP>
-                <input type="email" placeholder='email' />
-                <input type="password" placeholder='senha' />
-                <input type="text" placeholder='nome' />
-                <input type="url" placeholder='foto' />
+            <FormsingUP onSubmit={SingUpPost}>
+                <input disabled={active} type="email" placeholder='email' value={email} onChange={(e)=>setEmail(e.target.value)} required/>
+                <input disabled={active} type="password" placeholder='senha' value={password} onChange={(e)=>setPassword(e.target.value)} required/>
+                <input disabled={active} type="text" placeholder='nome' value={name} onChange={(e)=>setName(e.target.value)} required/>
+                <input disabled={active} type="url" placeholder='foto' value={image} onChange={(e)=>setImage(e.target.value)} required/>
 
-
-                <button>Cadastrar</button>
+                
+                <Button type='subimit' disabled={active} opacity ={active ? '70%':'none'}>{active? <ThreeDots />: 'Cadastrar'}</Button>
 
             </FormsingUP>
 
@@ -65,16 +86,27 @@ const FormsingUP = styled.form`
             color: #DBDBDB;
         }
     }
-    button{
-        background-color:#52B6FF;
-        height:45px;
-        border-radius:5px;
-        border:none;
-        color:#FFFFFF;
-        font-size:21px;
-        text-align:center;
-        font-family: 'Lexend Deca', sans-serif;
-
-    }
 
 `
+
+const Button = styled.button`
+    background-color:#52B6FF;
+    height:45px;
+    border-radius:5px;
+    border:none;
+    color:#FFFFFF;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:${props=>props.opacity};
+    font-size:21px;
+    text-align:center;
+    font-family: 'Lexend Deca', sans-serif;
+    div{
+        svg{
+        width:51px;
+        height: 13px;
+        fill:#FFFFFF;}
+    }
+`
+
