@@ -18,7 +18,7 @@ export default function SingUpPage() {
         e.preventDefault()
         setActive(true)
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up',{email, name, image, password})
-            .then((resposta)=>{navigate('/')})
+            .then(()=>{navigate('/')})
             .catch((erro)=>{
                 alert(erro.response.data.message)
                 setActive(false)})

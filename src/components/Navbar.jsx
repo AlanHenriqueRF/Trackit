@@ -1,7 +1,11 @@
 import styled from "styled-components"
 import bob from "./../assets/Rectangle 14.png"
+import { useContext } from "react"
+import { LoginContext } from "../providers/UserContex"
 
 export default function Navbar() {
+    const {user} =  useContext(LoginContext)
+    console.log(user)
     return (
         <Navbarstyle>
             <h1>TrackIt</h1>

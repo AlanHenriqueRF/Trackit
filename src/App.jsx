@@ -5,6 +5,8 @@ import Habitos from "./Pages/Habits/Habitos"
 import Hoje from "./Pages/Hoje/HojePage"
 import Historico from "./Pages/Historico"
 import axios from "axios"
+import React from "react"
+
 
 function App() {
   axios.defaults.headers.common['Authorization'] = '2cyXkIuRvC6AHn3BsyIuTlEr';
@@ -22,3 +24,5 @@ function App() {
 }
 
 export default App
+
+

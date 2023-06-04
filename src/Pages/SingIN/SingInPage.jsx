@@ -2,23 +2,34 @@ import { Link, useNavigate } from 'react-router-dom'
 import Logo from './../../assets/logo.svg'
 import styled from 'styled-components'
 import axios from 'axios'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
+import { LoginContext } from '../../providers/UserContex'
+
 
 export default function SingInPage() {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('');
-    const [active,setActive] =useState(false);
+    const [active,setActive] = useState(false);
     const navigate = useNavigate()
+
+    const {setUser} = useContext(LoginContext)
+
 
     function loginpost(e){
         e.preventDefault()
         setActive(true)
+
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login',{email:email,password:password})
-            .then((resposta)=>navigate('/hoje',{state: resposta}))
+            .then((resposta)=>{
+                setUser(resposta.data);
+
+                navigate('/hoje');
+            })
             .catch((erro)=>{
                 alert((erro.response.data.message))
-                setActive(false)})
+                setActive(false)
+            })
 
     }
     return (
