@@ -3,13 +3,13 @@ import SingInPage from "./Pages/SingIN/SingInPage"
 import SingUpPage from "./Pages/SingUP/SingUpPage"
 import Habitos from "./Pages/Habits/Habitos"
 import Hoje from "./Pages/Hoje/HojePage"
-import Historico from "./Pages/Historico"
+import Historico from "./Pages/Historico/Historico"
 import axios from "axios"
 import React from "react"
 
 
 function App() {
-  axios.defaults.headers.common['Authorization'] = '2cyXkIuRvC6AHn3BsyIuTlEr';
+  // axios.defaults.headers.common['Authorization'] = '2cyXkIuRvC6AHn3BsyIuTlEr';
   return (
     <BrowserRouter>
       <Routes>

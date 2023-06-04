@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 import { useContext, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
-import { LoginContext } from '../../providers/UserContex'
+import { LoginContext } from '../../providers/LoginContext'
 
 
 export default function SingInPage() {

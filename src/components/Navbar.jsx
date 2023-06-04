@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import bob from "./../assets/Rectangle 14.png"
 import { useContext } from "react"
-import { LoginContext } from "../providers/UserContex"
+import { LoginContext } from "../providers/LoginContext"
 
 export default function Navbar() {
     const {user} =  useContext(LoginContext)
@@ -9,7 +9,7 @@ export default function Navbar() {
     return (
         <Navbarstyle>
             <h1>TrackIt</h1>
-            <div><img src={bob} alt="imagePerfil" /></div>
+            <div><img src={user.image} alt="imagePerfil" /></div>
             
         </Navbarstyle>
     )

@@ -1,18 +1,50 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { useContext, useEffect, useState } from "react";
+import { HabitosContext } from "../providers/HabitosContext";
+import { LoginContext } from "../providers/LoginContext";
+import axios from "axios";
+
 
 export default function Footer() {
+    const {habitoday,setHabitoday} = useContext(LoginContext);
+    const {user} = useContext(LoginContext)
+    const {done,setDone} = useState([])
+
+    useEffect(()=>{
+        const config = {
+            headers:{
+                Authorization:`Bearer ${user.token}`
+            }
+        }
+        axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today',config)
+            .then((respota)=>{
+                setDone([...respota.data].filter((item)=>{if (item.done){return item}}))
+                setHabitoday(respota.data)    
+            })
+            .catch(erro=>alert(erro.response.data.message))
+    },[])
+
     return (
         <Footerstyle>
             <Container>
 
                 <div><Link to='/habitos'>Hábitos</Link></div>
 
-
-
-                <div><Link to='/hoje'>Hoje</Link></div>
-
-
+                <div><Link to='/hoje'><CircularProgressbar
+                    value={habitoday.length===0 ? 100:(done.length)/(habitoday.length)}
+                    text={`Hoje`}
+                    styles={buildStyles({ 
+                        textColor: '#FFFFFF',
+                        textSize: '18px',
+                        pathColor:'#FFFFFF',
+                        trailColor: 'none',
+                        pathTransitionDuration: 2,
+                        strokeLinecap: 'round',
+                        strokeWidth:100})}
+                /></Link></div>
 
                 <div><Link to='/historico'>Histórico</Link></div>
 
@@ -39,6 +71,9 @@ const Container = styled.div`
             font-family: 'Lexend Deca', sans-serif;
             font-weight:400;
             text-decoration:none;
+            width:87%;
+            height:87%;
+            
         }
     }
 
