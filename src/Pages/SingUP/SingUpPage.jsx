@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Logo from './../../assets/logo.svg'
+import Logo from '../../assets/logo.svg'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import axios from 'axios'
