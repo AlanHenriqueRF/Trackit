@@ -7,6 +7,7 @@ import { LoginContext } from "../../providers/LoginContext"
 import axios from "axios"
 import Habito from "../../components/Habito"
 import Diassemana from "../../components/Diassemana"
+import { ThreeDots } from "react-loader-spinner"
 
 export default function Habitos() {
     const lista_dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
@@ -15,6 +16,7 @@ export default function Habitos() {
     const { user } = useContext(LoginContext)
     const [templete, setTemplete] = useState(true)
     const [name, setName] = useState('')
+    const [active, setActive] = useState(false)
 
 
     const config = {
@@ -34,6 +36,7 @@ export default function Habitos() {
 
     function showcreatehabit() {
         setTemplete(!templete)
+        setActive(false)
     }
 
 
@@ -44,17 +47,28 @@ export default function Habitos() {
 
 
     function saveInApi() {
+        setActive(true);
+        setName('');
         const body = {
             name: name,
             days: days
         };
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config)
-            .then((resposta) => {setHabitos([...habitos, resposta.data])
+            .then((resposta) => {
+                setHabitos([...habitos, resposta.data])
+                setTemplete(!templete);
 
             })
-            .catch((erro) => console.log(erro.response.data.message))//  ALERT
+            .catch((erro) => {
+                setActive(false)
+                alert(erro.response.data.message)
+            })//  ALERT
     }
 
+    function Cancela(){
+        setTemplete(!templete);
+
+    }
     return (
         <>
             <Navbar />
@@ -68,16 +82,16 @@ export default function Habitos() {
                     <></> :
                     <TempleteCreat onSubmit={createhabit} data-test="habit-create-container">
                         <div >
-                            <input test="habit-name-input" type="text" placeholder="nome do hábito" onChange={(e) => setName(e.target.value)} required />
+                            <input test="habit-name-input" disabled={active} type="text" placeholder="nome do hábito" value={name} onChange={(e) => setName(e.target.value)} required />
                             <div>
-                                {lista_dias.map((dia, i) => <Diassemana key={i} type="subimit" dia={dia} id={i} setDays={setDays} days={days} />)}
+                                {lista_dias.map((dia, i) => <Diassemana key={dia.id} type="subimit" dia={dia} id={i} active={active} setDays={setDays} days={days} />)}
                             </div>
 
                         </div>
 
                         <Styleputhabit>
-                            <button data-test="habit-create-cancel-btn" type="subimit">Cancelar</button>
-                            <button data-test="habit-create-save-btn" type="submit" onClick={saveInApi}>Salvar</button>
+                            <button data-test="habit-create-cancel-btn" type="subimit" onClick={Cancela} disabled={active} opacity={active ? '70%' : 'none'}>{active ? <ThreeDots /> : 'Cancelar'}</button>
+                            <button data-test="habit-create-save-btn" type="submit" onClick={saveInApi} disabled={active} opacity={active ? '70%' : 'none'}> {active ? <ThreeDots /> : 'Salvar'}</button>
                         </Styleputhabit>
                     </TempleteCreat>
                 }
@@ -85,7 +99,7 @@ export default function Habitos() {
 
                 {habitos.length === 0 ?
                     <p>Você não tem nenhum hábito cadastrado ainda.Adicione um hábito para começar a trackear!</p> :
-                habitos.map(item => <Habito key={item.id} lista_dias={lista_dias} lista_habitos={item} />)}
+                    habitos.map(item => <Habito key={item.id} lista_dias={lista_dias} lista_habitos={item} habitos={habitos} setHabitos={setHabitos} />)}
             </ActionHabitts>
             <Footer />
 
@@ -182,16 +196,28 @@ const Styleputhabit = styled.div`
             font-size:16px;
             font-family: 'Lexend Deca', sans-serif;
             font-weight:400;
-            text-align:center
+            text-align:center;
+            opacity: ${props => props.opacity};
+            div{
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                svg{
+                    width:43px;
+                    height: 11px;
+                    fill:#FFFFFF;
+                    background-color: none;
+                }
+            }
         }
 
-    & :nth-child(1){
+    & button:nth-child(1){
         color: #52B6FF;
         border: none;
         background-color: #FFFFFF;
     }
 
-    & :nth-child(2){
+    & button:nth-child(2){
         color: #FFFFFF;
         border: none;
         border-radius:5px;

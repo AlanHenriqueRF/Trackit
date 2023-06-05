@@ -1,16 +1,33 @@
 import dump from './../assets/dump.svg'
 import styled from 'styled-components'
 import Diassemana from './Diassemana'
+import { LoginContext } from '../providers/LoginContext'
+import { useContext } from 'react';
+import axios from 'axios'
 
-export default function Habito({lista_dias,lista_habitos}){
+export default function Habito({lista_dias,lista_habitos,habitos,setHabitos}){
+    const { user } = useContext(LoginContext);
+    const config = {
+        headers: {
+            Authorization: `Bearer ${user.token}`
+        }
+    }
 
+    function delethabit(){
+        if (confirm('Deseja mesmo deletar habito ?')){
+            habitos = habitos.filter(i=>{if (i.id!==lista_habitos.id){return true}})
+            axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${lista_habitos.id}`, config)
+                .then(()=>(setHabitos(habitos)))
+                .catch((erro)=>console.log(erro.data.message))
+        }
+    }
     return (
         <TempleteHabit>
             <div>
                 <h1>{lista_habitos.name}</h1>
-                <div>{lista_dias.map((dia, i) => <Diassemana key={i} dia={dia} id={i} days={lista_habitos.days}/>)}</div>
+                <div>{lista_dias.map((dia, i) => <Diassemana key={i} dia={dia} idShow={i} daysShow={lista_habitos.days} active={true}/> )}</div> {/* <button key={i}>{dia}</button> */}
             </div>
-            <img src={dump} alt="Lixeira"/>
+            <img  onClick={delethabit} src={dump} alt="Lixeira"/>
         </TempleteHabit>
     )
 
@@ -43,20 +60,7 @@ const TempleteHabit = styled.div`
         div{
             
             display: flex;
-            /* flex-direction:line; */
             flex-wrap:wrap;
-            button{
-                background-color:#FFFFFF;
-                height:30px;
-                width:30px;
-                border-radius:5px;
-                border:1px solid #D4D4D4;
-                color:#DBDBDB;
-                font-size:20px;
-                text-align:center;
-                font-family: 'Lexend Deca', sans-serif;
-                margin:0 2px
-            }
         }
     }
 

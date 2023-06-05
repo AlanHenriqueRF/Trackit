@@ -1,12 +1,10 @@
 import { useState } from "react"
 import styled from "styled-components"
 
-export default function Diassemana({ dia, setDays, id, days }) {
+export default function Diassemana({ dia, setDays, id, days ,daysShow,idShow, active}) {
     const [clicou, setClicou] = useState(false);
-    // if (days.inludes(id)){
-    //     setClicou(!clicou)
-    // }
-    console.log(days)
+    const [teste,setTeste] = useState(false);
+    
     function clica() {
         if (setDays) {
             setClicou(!clicou)
@@ -21,7 +19,11 @@ export default function Diassemana({ dia, setDays, id, days }) {
     }
 
     return (
-        <Button data-test="habit-day" onClick={clica} color={clicou ? '#FFFFFF' : '#DBDBDB'} background={clicou ? '#CFCFCF' : '#FFFFFF'} border={clicou ? '#CFCFCF' : '#D4D4D4'}>{dia}</Button>
+        <Button data-test="habit-day" onClick={clica} 
+        disabled={active}
+        color={(clicou ) ? '#FFFFFF' : ((daysShow)? (daysShow.includes(idShow)?'#FFFFFF':'#DBDBDB'):'#DBDBDB')}
+        background={(clicou ) ? '#CFCFCF' : ((daysShow)? (daysShow.includes(idShow)?'#CFCFCF':'#FFFFFF'):'#FFFFFF')}
+        border={(clicou ) ? '#CFCFCF' : ((daysShow)? (daysShow.includes(idShow)?'#D4D4D4':'#CFCFCF'):'#D4D4D4')}>{dia}</Button>
     )
 }
 
