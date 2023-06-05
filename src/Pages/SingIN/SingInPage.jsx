@@ -37,12 +37,12 @@ export default function SingInPage() {
         
             <img src={Logo} alt='Logo' />
             <FormlogIn onSubmit={loginpost}>
-                <input type="email" disabled={active} placeholder='email' value={email} onChange={(e)=>setEmail(e.target.value)} required/>
-                <input type="password" disabled={active} placeholder='senha' value={password} onChange={(e)=>setPassword(e.target.value)} required/>
-                <Button type='submit' disabled={active} opacity ={active ? '70%':'none'}>{active ? <ThreeDots />:'Entrar'}</Button>
+                <input data-test="email-input" type="email" disabled={active} placeholder='email' value={email} onChange={(e)=>setEmail(e.target.value)} required/>
+                <input data-test="password-input" type="password" disabled={active} placeholder='senha' value={password} onChange={(e)=>setPassword(e.target.value)} required/>
+                <Button data-test="login-btn" type='submit' disabled={active} opacity ={active ? '70%':'none'}>{active ? <ThreeDots />:'Entrar'}</Button>
             </FormlogIn>
 
-            <Link to='/cadastro' >
+            <Link to='/cadastro' data-test="signup-link" >
                 Não tem uma conta? Cadastre-se!
             </Link>
         </PagelogIN>

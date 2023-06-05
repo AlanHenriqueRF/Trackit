@@ -4,7 +4,6 @@ import App from './App.jsx'
 import Reset from './style/ResetCSS.js'
 import Global from './style/Globalcss.js'
 import { LoginProvider } from './providers/LoginContext.jsx'
-import { HabitosProvider } from './providers/HabitosContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 

@@ -5,11 +5,11 @@ import { LoginContext } from "../providers/LoginContext"
 
 export default function Navbar() {
     const {user} =  useContext(LoginContext)
-    console.log(user)
+
     return (
-        <Navbarstyle>
+        <Navbarstyle data-test="header">
             <h1>TrackIt</h1>
-            <div><img src={user.image} alt="imagePerfil" /></div>
+            <div><img src={user.image} alt="imagePerfil" data-test="avatar" /></div>
             
         </Navbarstyle>
     )

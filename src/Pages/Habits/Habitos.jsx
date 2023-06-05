@@ -2,51 +2,95 @@ import styled from "styled-components"
 import Footer from "../../components/Footer"
 import Navbar from "../../components/Navbar"
 import plus from "./../../assets/plus.svg"
+import { useContext, useEffect, useState } from "react"
+import { LoginContext } from "../../providers/LoginContext"
+import axios from "axios"
+import Habito from "../../components/Habito"
+import Diassemana from "../../components/Diassemana"
 
 export default function Habitos() {
     const lista_dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+    const [days, setDays] = useState([])
+    const [habitos, setHabitos] = useState([{}])
+    const { user } = useContext(LoginContext)
+    const [templete, setTemplete] = useState(true)
+    const [name, setName] = useState('')
+
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${user.token}`
+        }
+    }
+    useEffect(() => {
+        const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config)
+
+        promise.then((resposta) => {
+            setHabitos(resposta.data)
+        })
+        promise.catch((erro) => alert(erro.response.data.message))
+    }, [])
+
+
+    function showcreatehabit() {
+        setTemplete(!templete)
+    }
+
+
+    function createhabit(e) {
+        e.preventDefault();
+        // console.log('oi')
+    }
+
+
+    function saveInApi() {
+        const body = {
+            name: name,
+            days: days
+        };
+        axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config)
+            .then((resposta) => {setHabitos([...habitos, resposta.data])
+
+            })
+            .catch((erro) => alert(erro.response.data.message))
+    }
+
     // quando cadastra, ou quando não possui nenhum hábito salvo retorna esse:
+    console.log(typeof (habitos))
     // return (
-    //     <>
-    //         <Navbar />
-    //         <ActionHabitts>
-    //             <Habittsstyle>
-    //                 <h1>Meus hábitos</h1>
-    //                 <button><img src={plus} alt="plus" /></button>
-    //             </Habittsstyle>
-    //             <p>Você não tem nenhum hábito cadastrado ainda.Adicione um hábito para começar a trackear!</p>
-    //         </ActionHabitts>
-    //         <Footer />
-
-    //     </>
+    //     {habitos.}
     // )
-
-
-    // se clicar no mais tem que retornar esse: pois vai cadastrar um novo habito, porém se ja tiver algun cadastrado
-    // deve ser analisado uma tela sem o p quer informa ao usuario que não possui hábitos algum
     return (
         <>
             <Navbar />
             <ActionHabitts>
                 <Habittsstyle>
                     <h1>Meus hábitos</h1>
-                    <button><img src={plus} alt="plus" /></button>
+                    <button onClick={showcreatehabit} data-test="habit-create-btn" ><img src={plus} alt="plus" /></button>
                 </Habittsstyle>
-                <TempleteCreat>
-                    <form>
-                        <input type="text" placeholder="nome do hábito" />
-                        <div>
-                            {lista_dias.map((dia, i) => <button key={i}>{dia}</button>)}
+
+                {templete ?
+                    <></> :
+                    <TempleteCreat onSubmit={createhabit} data-test="habit-create-container">
+                        <div >
+                            <input test="habit-name-input" type="text" placeholder="nome do hábito" onChange={(e) => setName(e.target.value)} required />
+                            <div>
+                                {lista_dias.map((dia, i) => <Diassemana key={i} type="subimit" dia={dia} id={i} setDays={setDays} days={days} />)}
+                            </div>
+
                         </div>
 
-                    </form>
+                        <Styleputhabit>
+                            <button data-test="habit-create-cancel-btn" type="subimit">Cancelar</button>
+                            <button data-test="habit-create-save-btn" type="submit" onClick={saveInApi}>Salvar</button>
+                        </Styleputhabit>
+                    </TempleteCreat>
+                }
 
-                    <Styleputhabit>
-                        <button>Cancelar</button>
-                        <button>Salvar</button>
-                    </Styleputhabit>
-                </TempleteCreat>
 
+                {habitos.length === 0 ?
+                    <p>Você não tem nenhum hábito cadastrado ainda.Adicione um hábito para começar a trackear!</p> :
+                habitos.map(item => <Habito key={item.id} lista_dias={lista_dias} lista_habitos={item} />)}
             </ActionHabitts>
             <Footer />
 
@@ -96,14 +140,14 @@ const Habittsstyle = styled.div`
     }
 `
 
-const TempleteCreat = styled.div`
+const TempleteCreat = styled.form`
     height:180px;
     margin: 20px 17px 0px 17px;
     background-color: #FFFFFF;
     border-radius:5px;
     box-sizing:0 1px 1px black;
 
-    form{
+    & div:nth-child(1){
         display: flex;
         flex-direction: column;
         /* flex-wrap:wrap; */
@@ -125,18 +169,7 @@ const TempleteCreat = styled.div`
         
         div{
             margin-left:17px;
-            button{
-                background-color:#FFFFFF;
-                height:30px;
-                width:30px;
-                border-radius:5px;
-                border:1px solid #D4D4D4;
-                color:#DBDBDB;
-                font-size:20px;
-                text-align:center;
-                font-family: 'Lexend Deca', sans-serif;
-                margin:0 2px
-            }
+            
         }
 
     }

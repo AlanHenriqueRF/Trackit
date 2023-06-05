@@ -2,16 +2,15 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { useContext, useEffect, useState } from "react";
-import { HabitosContext } from "../providers/HabitosContext";
+import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../providers/LoginContext";
 import axios from "axios";
 
 
 export default function Footer() {
     const {habitoday,setHabitoday} = useContext(LoginContext);
-    const {user} = useContext(LoginContext)
-    const {done,setDone} = useState([])
+    const {user} = useContext(LoginContext);
+    const [done, setDone] = React.useState('');
 
     useEffect(()=>{
         const config = {
@@ -22,18 +21,17 @@ export default function Footer() {
         axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today',config)
             .then((respota)=>{
                 setDone([...respota.data].filter((item)=>{if (item.done){return item}}))
-                setHabitoday(respota.data)    
-            })
-            .catch(erro=>alert(erro.response.data.message))
+                setHabitoday(respota.data)})
+            .catch((erro)=>{alert(erro.response.data.message)});
     },[])
 
     return (
         <Footerstyle>
-            <Container>
+            <Container data-test="menu">
 
-                <div><Link to='/habitos'>Hábitos</Link></div>
+                <div><Link to='/habitos' data-test="habit-link">Hábitos</Link></div>
 
-                <div><Link to='/hoje'><CircularProgressbar
+                <div><Link to='/hoje' data-test="today-link"><CircularProgressbar
                     value={habitoday.length===0 ? 100:(done.length)/(habitoday.length)}
                     text={`Hoje`}
                     styles={buildStyles({ 
@@ -46,7 +44,7 @@ export default function Footer() {
                         strokeWidth:100})}
                 /></Link></div>
 
-                <div><Link to='/historico'>Histórico</Link></div>
+                <div><Link to='/historico' data-test="history-link">Histórico</Link></div>
 
             </Container>
         </Footerstyle>

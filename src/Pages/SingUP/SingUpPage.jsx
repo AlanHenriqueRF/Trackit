@@ -29,17 +29,17 @@ export default function SingUpPage() {
             <img src={Logo} alt="Logo" />
 
             <FormsingUP onSubmit={SingUpPost}>
-                <input disabled={active} type="email" placeholder='email' value={email} onChange={(e)=>setEmail(e.target.value)} required/>
-                <input disabled={active} type="password" placeholder='senha' value={password} onChange={(e)=>setPassword(e.target.value)} required/>
-                <input disabled={active} type="text" placeholder='nome' value={name} onChange={(e)=>setName(e.target.value)} required/>
-                <input disabled={active} type="url" placeholder='foto' value={image} onChange={(e)=>setImage(e.target.value)} required/>
+                <input disabled={active} data-test="email-input" type="email" placeholder='email' value={email} onChange={(e)=>setEmail(e.target.value)} required/>
+                <input disabled={active} data-test="password-input" type="password" placeholder='senha' value={password} onChange={(e)=>setPassword(e.target.value)} required/>
+                <input disabled={active} data-test="user-name-input" type="text" placeholder='nome' value={name} onChange={(e)=>setName(e.target.value)} required/>
+                <input disabled={active} data-test="user-image-input" type="url" placeholder='foto' value={image} onChange={(e)=>setImage(e.target.value)} required/>
 
                 
-                <Button type='subimit' disabled={active} opacity ={active ? '70%':'none'}>{active? <ThreeDots />: 'Cadastrar'}</Button>
+                <Button type='subimit' data-test="signup-btn" disabled={active} opacity ={active ? '70%':'none'}>{active? <ThreeDots />: 'Cadastrar'}</Button>
 
             </FormsingUP>
 
-            <Link to='/'>
+            <Link to='/' data-test="login-link">
                 Já tem uma conta? Faça login!
             </Link>
         </PagesingUP>
