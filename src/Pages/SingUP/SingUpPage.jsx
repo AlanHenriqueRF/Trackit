@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import Logo from '../../assets/logo.svg'
-import { Link, useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
+import { useState } from 'react';
+import Logo from '../../assets/logo.svg';
+import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import axios from 'axios'
-import { ThreeDots } from 'react-loader-spinner'
+import { ThreeDots } from 'react-loader-spinner';
 
 export default function SingUpPage() {
     const [email,setEmail]= useState('');

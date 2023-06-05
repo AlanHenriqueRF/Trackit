@@ -1,10 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom'
-import Logo from '../../assets/logo.svg'
-import styled from 'styled-components'
-import axios from 'axios'
-import { useContext, useState } from 'react'
-import { ThreeDots } from 'react-loader-spinner'
-import { LoginContext } from '../../providers/LoginContext'
+import { Link, useNavigate } from 'react-router-dom';
+import Logo from '../../assets/logo.svg';
+import styled from 'styled-components';
+import axios from 'axios';
+import { useContext, useState } from 'react';
+import { ThreeDots } from 'react-loader-spinner';
+import { LoginContext } from '../../providers/LoginContext';
 
 
 export default function SingInPage() {

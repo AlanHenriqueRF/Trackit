@@ -55,11 +55,6 @@ export default function Habitos() {
             .catch((erro) => console.log(erro.response.data.message))//  ALERT
     }
 
-    // quando cadastra, ou quando não possui nenhum hábito salvo retorna esse:
-    console.log(typeof (habitos))
-    // return (
-    //     {habitos.}
-    // )
     return (
         <>
             <Navbar />

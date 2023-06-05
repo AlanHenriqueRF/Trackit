@@ -3,11 +3,12 @@ import styled from 'styled-components'
 import Diassemana from './Diassemana'
 
 export default function Habito({lista_dias,lista_habitos}){
+
     return (
         <TempleteHabit>
             <div>
                 <h1>{lista_habitos.name}</h1>
-                <div>{lista_dias.map((dia, i) => <Diassemana key={i} dia={dia}/>)}</div>
+                <div>{lista_dias.map((dia, i) => <Diassemana key={i} dia={dia} id={i} days={lista_habitos.days}/>)}</div>
             </div>
             <img src={dump} alt="Lixeira"/>
         </TempleteHabit>
