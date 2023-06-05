@@ -8,8 +8,7 @@ import axios from "axios";
 
 
 export default function Footer() {
-    const {habitoday,setHabitoday} = useContext(LoginContext);
-    const {user} = useContext(LoginContext);
+    const {habitoday,setHabitoday,user,percent, setPercent} = useContext(LoginContext);
     const [done, setDone] = React.useState('');
 
     useEffect(()=>{
@@ -20,8 +19,10 @@ export default function Footer() {
         }
         axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today',config)
             .then((respota)=>{
-                setDone([...respota.data].filter((item)=>{if (item.done){return item}}))
-                setHabitoday(respota.data)})
+                setPercent(((respota.data.filter((i)=>{if(i.done){return true}}).length)/(respota.data.length))*100);
+                setDone([...respota.data].filter((item)=>{if (item.done){return item}}));
+                setHabitoday(respota.data);
+                })
             .catch((erro)=>{alert(erro.response.data.message)});
     },[])
 
@@ -32,7 +33,7 @@ export default function Footer() {
                 <div><Link to='/habitos' data-test="habit-link">Hábitos</Link></div>
 
                 <div><Link to='/hoje' data-test="today-link"><CircularProgressbar
-                    value={habitoday.length===0 ? 100:(done.length)/(habitoday.length)}
+                    value={percent?percent:0}
                     text={`Hoje`}
                     styles={buildStyles({ 
                         textColor: '#FFFFFF',

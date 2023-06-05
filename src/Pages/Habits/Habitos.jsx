@@ -82,9 +82,9 @@ export default function Habitos() {
                     <></> :
                     <TempleteCreat onSubmit={createhabit} data-test="habit-create-container">
                         <div >
-                            <input test="habit-name-input" disabled={active} type="text" placeholder="nome do hábito" value={name} onChange={(e) => setName(e.target.value)} required />
+                            <input test="habit-name-input" disabled={active} type="text" placeholder="nome do hábito" value={name} onChange={(e) => setName(e.target.value)} />
                             <div>
-                                {lista_dias.map((dia, i) => <Diassemana key={dia.id} type="subimit" dia={dia} id={i} active={active} setDays={setDays} days={days} />)}
+                                {lista_dias.map((dia, i) => <Diassemana key={dia.id} type="subimit" dia={dia} id={i} active={active} setDays={setDays} days={days} required />)}
                             </div>
 
                         </div>
@@ -110,7 +110,8 @@ export default function Habitos() {
 
 const ActionHabitts = styled.div`
     background-color:#E5E5E5;
-    padding-top: 70px;
+    padding-top: 65px;
+
     height:100vh;
     padding-bottom:70px;
     p{
@@ -129,6 +130,7 @@ const Habittsstyle = styled.div`
     align-items: center;
     justify-content:space-between;
     margin-top:28px;
+    margin-bottom:28px;
     h1{
         color:#126BA5;
         font-family: 'Lexend Deca', sans-serif;
@@ -187,7 +189,7 @@ const TempleteCreat = styled.form`
 
 const Styleputhabit = styled.div`
     margin-right:16px;
-    margin-top:23px;
+    margin-top:5px;
     display:flex;
     justify-content:flex-end;
     button{
