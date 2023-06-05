@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 export default function Todayhabits({ item }) {
     const [marked,setMarked] = useState(false)
-    
+
     const {user, habitoday,setPercent} = useContext(LoginContext);
     const config = {
         headers: {
@@ -28,12 +28,13 @@ export default function Todayhabits({ item }) {
     }
 
     return (
-        <TempleteToday color={(marked || item.done)? '#8FC549':'#EBEBEB'} border ={(marked || item.done)? 'none':'#E7E7E7'}>
+        <TempleteToday color={(marked || item.done)? '#8FC549':'#EBEBEB'} border ={(marked || item.done)? 'none':'#E7E7E7'} data-test="today-habit-container">
             <div>
-                <h1>{item.name}</h1>
-                <p>Sequência atual: {item.currentSequence} dias<br />Seu recorde: {item.highestSequence} dias</p>
+                <h1 data-test="today-habit-name">{item.name}</h1>
+                <p data-test="today-habit-sequence">Sequência atual: {item.currentSequence} dias</p>
+                <p data-test="today-habit-record">Seu recorde: {item.highestSequence} dias</p>
             </div>
-            <button onClick={() => done(item.id)}>
+            <button data-test="today-habit-check-btn" onClick={() => done(item.id)}>
                 <img src={check} alt="check" />
             </button>
         </TempleteToday>

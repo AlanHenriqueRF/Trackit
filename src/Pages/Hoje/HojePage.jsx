@@ -19,8 +19,8 @@ export default function Hoje() {
             <Navbar />
             <Actiontoday>
                 <Todaystyle color={(!percent || percent===0)? '#BABABA':'#8FC549'}>
-                    <h1>Segunda, {today}</h1>
-                    <h2>{(!percent || percent===0)? 'Nenhum hábito concluído ainda':`${percent}% dos hábitos concluídos`}</h2>
+                    <h1 data-test="today">Segunda, {today}</h1>
+                    <h2 data-test="today-counter">{(!percent || percent===0)? 'Nenhum hábito concluído ainda':`${percent}% dos hábitos concluídos`}</h2>
                 </Todaystyle>
 
                 

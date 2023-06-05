@@ -22,12 +22,12 @@ export default function Habito({lista_dias,lista_habitos,habitos,setHabitos}){
         }
     }
     return (
-        <TempleteHabit>
+        <TempleteHabit data-test="habit-container">
             <div>
-                <h1>{lista_habitos.name}</h1>
+                <h1 data-test="habit-name">{lista_habitos.name}</h1>
                 <div>{lista_dias.map((dia, i) => <Diassemana key={i} dia={dia} idShow={i} daysShow={lista_habitos.days} active={true}/> )}</div> {/* <button key={i}>{dia}</button> */}
             </div>
-            <img  onClick={delethabit} src={dump} alt="Lixeira"/>
+            <img data-test="habit-delete-btn" onClick={delethabit} src={dump} alt="Lixeira"/>
         </TempleteHabit>
     )
 
