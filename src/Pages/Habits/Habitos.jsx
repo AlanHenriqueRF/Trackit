@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Footer from "../../components/Footer"
 import Navbar from "../../components/Navbar"
-import plus from "./../../assets/plus.svg"
+import plus from "../../assets/plus.svg"
 import { useContext, useEffect, useState } from "react"
 import { LoginContext } from "../../providers/LoginContext"
 import axios from "axios"
@@ -28,7 +28,7 @@ export default function Habitos() {
         promise.then((resposta) => {
             setHabitos(resposta.data)
         })
-        promise.catch((erro) => alert(erro.response.data.message))
+        promise.catch((erro) => console.log(erro.response.data.message)) // ALERT
     }, [])
 
 
@@ -52,7 +52,7 @@ export default function Habitos() {
             .then((resposta) => {setHabitos([...habitos, resposta.data])
 
             })
-            .catch((erro) => alert(erro.response.data.message))
+            .catch((erro) => console.log(erro.response.data.message))//  ALERT
     }
 
     // quando cadastra, ou quando não possui nenhum hábito salvo retorna esse:

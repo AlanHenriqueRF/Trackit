@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import check from "./../../assets/vector.png"
+import check from "../../assets/vector.png"
 import React from "react";
 
 
