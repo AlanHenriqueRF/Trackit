@@ -41,7 +41,8 @@ const TempleteHabit = styled.div`
     border-radius:5px;
     box-sizing:0 1px 1px black;
     display: flex;
-    flex-wrap:wrap;
+    justify-content:space-between;
+    /* flex-wrap:wrap; */
 
     & div:nth-child(1){
         display: flex;
@@ -68,7 +69,8 @@ const TempleteHabit = styled.div`
         color:#666666;
         width:13px;
         height:15px;
-        margin-left:69px;
+        margin-right: 10px;
+        /* margin-left:69px; */
         margin-top:11px;
     }
 `
