@@ -42,7 +42,6 @@ const TempleteHabit = styled.div`
     box-sizing:0 1px 1px black;
     display: flex;
     justify-content:space-between;
-    /* flex-wrap:wrap; */
 
     & div:nth-child(1){
         display: flex;
@@ -61,7 +60,9 @@ const TempleteHabit = styled.div`
         div{
             
             display: flex;
-            flex-wrap:wrap;
+            margin-right:18px;
+            
+            /* flex-wrap:wrap; */
         }
     }
 
@@ -70,7 +71,6 @@ const TempleteHabit = styled.div`
         width:13px;
         height:15px;
         margin-right: 10px;
-        /* margin-left:69px; */
         margin-top:11px;
     }
 `
